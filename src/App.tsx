@@ -28,9 +28,6 @@ import {
 
 import { Auth } from "./Auth";
 import { history } from "./history";
-import GoogleMap from "./components/GoogleMap";
-import co2Data from './data/co2-data.json';
-import HeatmapDecoratorApp from './HeatmapDecoratorApp';
 import {HeatmapDecoratorWidgetProvider} from "./HeatmapDecoratorWidget";
 import { ViewAttributesWidgetProvider } from "./ViewAttibutesWidgets";
 
@@ -182,17 +179,15 @@ const App: React.FC = () => {
       </div>
       {/* Remova o comentário abaixo para manter o mapa react-leaflet e comente o GoogleMap */}
       <div className="map-container" style={{ height: '500px', width: '100%' }}>
-        <MapContainer center={[-25.4429, -49.2769]} zoom={13} style={{ height: '100%', width: '100%' }}>
+        <MapContainer center={[-23.5505, -46.6333]} zoom={13} style={{ height: '100%', width: '100%' }}>
           <TileLayer
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           />
-          <Marker position={[-25.4429, -49.2769]}>
+          <Marker position={[-23.5505, -46.6333]}>
             <Popup>
             <div>
-                <img src="/images/jardim-botanico.jpg" alt="Jardim Botânico, Curitiba" style={{ width: '100%', height: 'auto' }} />
-                <h2>Jardim Botânico, Curitiba</h2>
-                <p>Localização: Curitiba, Paraná, Brasil</p>
+                <h2>São Paulo</h2>
               </div>
             </Popup>
           </Marker>
