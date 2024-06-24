@@ -1,0 +1,28 @@
+[
+    {
+      "region": "r001",
+      "temperature": 22.5,
+      "co2": 400
+    },
+    {
+      "region": "r002",
+      "temperature": 23.0,
+      "co2": 420
+    },
+    {
+      "region": "r003",
+      "temperature": 21.8,
+      "co2": 410
+    },
+    {
+      "region": "r004",
+      "temperature": 24.1,
+      "co2": 430
+    },
+    {
+      "region": "r005",
+      "temperature": 22.0,
+      "co2": 390
+    }
+  ]
+  

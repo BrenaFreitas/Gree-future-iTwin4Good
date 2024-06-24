@@ -4,6 +4,7 @@ import type { ScreenViewport } from "@itwin/core-frontend";
 import { FitViewTool, IModelApp, StandardViewId } from "@itwin/core-frontend";
 import { FillCentered } from "@itwin/core-react";
 import { ProgressLinear } from "@itwin/itwinui-react";
+
 import {
   MeasurementActionToolbar,
   MeasureTools,
@@ -30,9 +31,16 @@ import { Auth } from "./Auth";
 import { history } from "./history";
 import {HeatmapDecoratorWidgetProvider} from "./HeatmapDecoratorWidget";
 import { ViewAttributesWidgetProvider } from "./ViewAttibutesWidgets";
+import { IotAlertWidgetProvider } from "./IotAlertWidget";
+import { toaster } from "@itwin/itwinui-react";
+import { DeviceStatusApi } from "./DeviceStatusApi";
 
 
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+
+//import { InsightsClient } from "@itwin/insights-client";  
+//import { GroupingMappingWidget } from "@itwin/grouping-mapping-widget";  
+
+
 import 'leaflet/dist/leaflet.css';
 
 const App: React.FC = () => {
@@ -123,6 +131,13 @@ const App: React.FC = () => {
     await PropertyGridManager.initialize();
     await MeasureTools.startup();
     MeasurementActionToolbar.setDefaultActionProvider();
+    try {
+      const data = await DeviceStatusApi.getData();
+      toaster.informational(JSON.stringify(data), { type: "persisting", hasCloseButton: true });
+    } catch (error) {
+      console.error('Erro ao buscar os dados do dispositivo:', error);
+    }
+
   }, []);
 
   return (
@@ -147,6 +162,7 @@ const App: React.FC = () => {
             new ViewerNavigationToolsProvider(),
             new ViewAttributesWidgetProvider(),
             new HeatmapDecoratorWidgetProvider(),
+            new IotAlertWidgetProvider(),
             new ViewerContentToolsProvider({
               vertical: {
                 measureGroup: false,
@@ -178,21 +194,7 @@ const App: React.FC = () => {
         />
       </div>
       {/* Remova o comentário abaixo para manter o mapa react-leaflet e comente o GoogleMap */}
-      <div className="map-container" style={{ height: '500px', width: '100%' }}>
-        <MapContainer center={[-23.5505, -46.6333]} zoom={13} style={{ height: '100%', width: '100%' }}>
-          <TileLayer
-            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-          />
-          <Marker position={[-23.5505, -46.6333]}>
-            <Popup>
-            <div>
-                <h2>São Paulo</h2>
-              </div>
-            </Popup>
-          </Marker>
-        </MapContainer>
-      </div>
+      
     </div>
   );
 };
